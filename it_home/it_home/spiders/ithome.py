@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import scrapy
-import BeautifulSoup
+from bs4 import BeautifulSoup
 
 class IthomeSpider(scrapy.Spider):
     name = "ithome"
@@ -31,7 +31,9 @@ class IthomeSpider(scrapy.Spider):
         print author[0]
         editor = response.xpath('//div//span[@id = "editor_baidu"]/strong/text()').extract()
         print editor
-
+        soup = BeautifulSoup(response.xpath('//div[@class="post_content"]').extract()[0], 'lxml')
+        content = soup.get_text()
+        print content
 
 
 if __name__ == '__main__':
